@@ -1,21 +1,71 @@
-import { Button } from '../components/ui/button';
-import { Textarea } from '../components/ui/textarea';
+import { useEffect, useState } from "react";
+import { Button } from "../components/ui/button";
+import { Textarea } from "../components/ui/textarea";
 
 export default function Main() {
+  const [question, setQuestion] = useState<string[]>([]);
+  const [textAreaValue, setTextAreaValue] = useState("");
+
+  const handleChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
+    setTextAreaValue(event.target.value);
+  };
+
+  const clickButton = () => {
+    setQuestion((prev) => [...prev, textAreaValue]);
+  };
+
+  useEffect(() => {
+    console.log(textAreaValue);
+  }, [textAreaValue]);
+
+  useEffect(() => {
+    console.log(question);
+  }, [question]);
+
   return (
     <div className="flex h-[100vh]">
-      <div className="w-[15%] bg-gray-100">AI-PRO란?</div>
-      <div className="w-[85%]">
-        <div className="flex flex-col px-[100px] py-[30px] gap-2">
-          <Textarea placeholder="type your message" />
-          <div className="self-end">
-            <Button variant="default">Send</Button>
+      <div className="w-[15%] bg-gray-100 flex flex-col gap-7 p-3">
+        <h1 className="scroll-m-20 text-3xl font-bold lg:text-5xl">AI-PRO</h1>
+        <div className="flex flex-col">
+          <h3 className="scroll-m-20 pb-2 text-xl font-semibold tracking-tight first:mt-0">
+            AI-PRO란?
+          </h3>
+          <div className="text-sm">
+            AI-PRO와 함께하는 것은 프로그래밍 여정에 도움이 되는 조수를 두는
+            것과 같습니다.
+            <br />
+            <br /> 개선 사항을 관찰하고, 학습하고, 제안하여 코딩을 더욱
+            효율적이고 즐겁게 만듭니다.
+            <br />
+            <br />
+            AI-PRO는 여러분을 든든하게 지원하고, 더 나은 프로그래머가 되도록
+            도와드립니다!
           </div>
         </div>
-        <div className="h-[80%] px-[100px] py-[20px]">
-          gpt의 답변은 아래와 같습니다. 이 리팩터링된 코드에서는 다음을 수행합니다. booleanValue 변수는 불리언 타입으로
-          선언되었습니다. 부울 값 true를 나타내는 부울 리터럴인 true 값이 직접 할당됩니다. 그러면 booleanValue 값이
-          콘솔에 출력됩니다.
+      </div>
+      <div className="w-[85%] flex flex-col mt-10 p-6">
+        <div className="flex flex-col px-[100px] py-[30px] gap-2">
+          <Textarea
+            value={textAreaValue}
+            onChange={handleChange}
+            placeholder="AI PRO에게 코드를 질문해보세요."
+          />
+          <div className="self-end">
+            <Button variant="default" onClick={clickButton}>
+              질문하기
+            </Button>
+          </div>
+        </div>
+        <div className="bg-gray-100 m-[90px] p-6 rounded-xl">
+          {question.map((q, index) => (
+            <div key={index} className="flex flex-col gap-5 mt-5 mb-5">
+              <span className="font-semibold">
+                질문: <span className="font-light">{q}</span>
+              </span>
+              <p className="font-semibold">답변: </p>
+              <hr />
+            </div>
+          ))}
         </div>
       </div>
     </div>
