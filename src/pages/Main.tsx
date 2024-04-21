@@ -36,6 +36,9 @@ export default function Main() {
         </div>
       </div>
       <div className="w-[85%] flex flex-col mt-10 p-6">
+        <h2 className="scroll-m-20 pb-2 text-3xl font-semibold tracking-tight ml-10">
+          무엇을 도와드릴까요?
+        </h2>
         <div className="flex flex-col px-[100px] py-[30px] gap-2">
           <Textarea
             value={textAreaValue}
@@ -51,9 +54,12 @@ export default function Main() {
         <div className="bg-gray-100 m-[90px] p-6 rounded-xl">
           {question.map((q, index) => (
             <div key={index} className="flex flex-col gap-5 mt-5 mb-5">
-              <span className="font-semibold">
-                질문: <span className="font-light">{q}</span>
-              </span>
+              <div className="font-semibold">
+                질문:
+                <div className="font-light w-[100%] bg-white mt-3 rounded-md p-3">
+                  {q}
+                </div>
+              </div>
               <p className="font-semibold">답변: </p>
               <hr />
             </div>
