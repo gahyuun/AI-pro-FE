@@ -14,14 +14,6 @@ export default function Main() {
     setQuestion((prev) => [...prev, textAreaValue]);
   };
 
-  useEffect(() => {
-    console.log(textAreaValue);
-  }, [textAreaValue]);
-
-  useEffect(() => {
-    console.log(question);
-  }, [question]);
-
   return (
     <div className="flex h-[100vh]">
       <div className="w-[15%] bg-gray-100 flex flex-col gap-7 p-3">
