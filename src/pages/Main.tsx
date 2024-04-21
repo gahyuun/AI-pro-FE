@@ -17,10 +17,12 @@ export default function Main() {
 
   return (
     <div className="flex h-[100vh]">
-      <div className="w-[15%] bg-gray-100 flex flex-col gap-7 p-3">
-        <h1 className="scroll-m-20 text-3xl font-bold lg:text-5xl">AI-PRO</h1>
+      <div className="w-[15%] bg-gray-100 flex flex-col gap-10 p-3">
+        <h1 className="scroll-m-20 text-3xl font-bold lg:text-5xl mt-5 ">
+          AI-PRO
+        </h1>
         <div className="flex flex-col">
-          <h3 className="scroll-m-20 pb-2 text-xl font-semibold tracking-tight first:mt-0">
+          <h3 className="scroll-m-20  pb-2 text-xl font-semibold tracking-tight first:mt-0">
             AI-PRO란?
           </h3>
           <div className="text-sm">
@@ -32,7 +34,7 @@ export default function Main() {
             <br />
             <br />
             AI-PRO는 여러분을 든든하게 지원하고, 더 나은 프로그래머가 되도록
-            도와드립니다!
+            도와주는 AI입니다!
           </div>
         </div>
       </div>
@@ -53,11 +55,9 @@ export default function Main() {
           </div>
         </div>
         <div className="bg-gray-100 m-[90px] p-6 rounded-xl">
-          <div>
-            <p className="font-semibold">답변: </p>
-            <div className="font-light w-[100%] bg-white mt-3 rounded-md p-3">
-              <p>{answer}</p>
-            </div>
+          <p className="font-semibold">답변: </p>
+          <div className="font-light w-[100%] bg-white mt-3 rounded-md p-3">
+            <p>{answer}</p>
           </div>
         </div>
       </div>
