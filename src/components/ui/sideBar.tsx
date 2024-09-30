@@ -5,15 +5,6 @@ import { Button } from './button';
 export default function SideBar() {
   const handleSubmit: React.FormEventHandler<HTMLFormElement> = (event) => {
     event.preventDefault();
-    // 여기에 form 제출 로직을 추가합니다.
-    console.log('Form submitted');
-  };
-
-  const handleKeyDown: React.KeyboardEventHandler<HTMLTextAreaElement> = (even) => {
-    // if (event.key === 'Enter' && !event.shiftKey) {
-    //   event.preventDefault();
-    //   event.target.form.dispatchEvent(new Event('submit', { cancelable: true }));
-    // }
   };
 
   return (
