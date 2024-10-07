@@ -3,7 +3,7 @@ import Chat from "../components/chat";
 
 export default function Main() {
   return (
-    <div className="flex h-[100vh] bg-primary">
+    <div className="flex bg-primary">
       <Chat />
       <SideBar />
     </div>
