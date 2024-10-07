@@ -13,7 +13,6 @@ interface ChatEntry {
 export default function Chat() {
   const [textAreaValue, setTextAreaValue] = useState("");
   const [chatLog, setChatLog] = useState<ChatEntry[]>([]);
-  const [isLoading, setIsLoading] = useState(false);
   const [role] = useAtom(roleAtom);
 
   const handleChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
@@ -28,18 +27,20 @@ export default function Chat() {
       { userMessage: textAreaValue, aiResponse: null },
     ]);
 
-    setTextAreaValue("");
-    setIsLoading(true);
+    try {
+      const response = await getAnswer(textAreaValue, "user1", role[0] || "");
+      const aiResponse = response.message;
 
-    const aiResponse = await getAnswer(textAreaValue, "user1", role[0]);
-
-    setChatLog((prevChatLog) => {
-      const updatedLog = [...prevChatLog];
-      updatedLog[updatedLog.length - 1].aiResponse = aiResponse;
-      return updatedLog;
-    });
-
-    setIsLoading(false);
+      setChatLog((prevChatLog) => {
+        const updatedLog = [...prevChatLog];
+        updatedLog[updatedLog.length - 1].aiResponse = aiResponse;
+        return updatedLog;
+      });
+    } catch (error) {
+      console.error("Error fetching AI response:", error);
+    } finally {
+      setTextAreaValue("");
+    }
   };
 
   return (
@@ -61,7 +62,9 @@ export default function Chat() {
             <div>
               <p className="font-semibold text-white">🤖 AI 코치</p>
               <p className="font-light text-white p-3">
-                {isLoading ? "답변을 준비중입니다..." : entry.aiResponse}
+                {entry.aiResponse === null
+                  ? "답변을 준비중입니다..."
+                  : entry.aiResponse}
               </p>
             </div>
           </div>
