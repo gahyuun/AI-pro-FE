@@ -14,7 +14,7 @@ export default function SideBar() {
   };
 
   return (
-    <div className="w-[20%] bg-secondary flex flex-col gap-10 p-3">
+    <div className="w-[20%] bg-secondary flex flex-col gap-10 p-3 h-screen fixed right-0">
       <div className="flex flex-col h-[100%] ">
         <h3 className="scroll-m-20  text-white p-4 text-lg font-semibold tracking-tight first:mt-0">
           AI의 역할을 지정하여 더욱 효율적인 코칭을 경험해보세요!
