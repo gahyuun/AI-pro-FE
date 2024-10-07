@@ -1,16 +1,16 @@
-import React, { useState } from 'react';
-import { Textarea } from './textarea';
-import { Button } from './button';
-import { useAtom } from 'jotai';
-import { roleAtom } from '../../store/role';
+import React, { useState } from "react";
+import { Textarea } from "./ui/textarea";
+import { Button } from "./ui/button";
+import { useAtom } from "jotai";
+import { roleAtom } from "../store/role";
 
 export default function SideBar() {
-  const [text, setText] = useState('');
+  const [text, setText] = useState("");
   const [role, setRole] = useAtom(roleAtom);
   const handleSubmit: React.FormEventHandler<HTMLFormElement> = (event) => {
     event.preventDefault();
     setRole((prev) => [...prev, text]);
-    setText('');
+    setText("");
   };
 
   return (
@@ -22,7 +22,9 @@ export default function SideBar() {
         <div className="flex-grow overflow-auto">
           <div className="flex flex-col gap-4">
             {role.map((value) => (
-              <div className="bg-black text-white rounded-md p-2 text-sm">"{value}"의 역할이 부여되었습니다</div>
+              <div className="bg-black text-white rounded-md p-2 text-sm">
+                "{value}"의 역할이 부여되었습니다
+              </div>
             ))}
           </div>
         </div>
@@ -35,7 +37,11 @@ export default function SideBar() {
                 setText(e.target.value);
               }}
             />
-            <Button variant="default" type="submit" className="bg-black text-white h-[100%]">
+            <Button
+              variant="default"
+              type="submit"
+              className="bg-black text-white h-[100%]"
+            >
               전송
             </Button>
           </div>
