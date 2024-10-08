@@ -5,13 +5,10 @@ export const getAnswer = async (
   userId: string,
   role: string
 ) => {
-  const { data } = await axios.post(
-    " http://15.165.114.217:8080/api/chat/question" as string,
-    {
-      question,
-      userId,
-      role,
-    }
-  );
+  const { data } = await axios.post(process.env.REACT_APP_API_URL as string, {
+    question,
+    userId,
+    role,
+  });
   return data;
 };
