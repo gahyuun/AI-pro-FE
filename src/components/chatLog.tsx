@@ -46,7 +46,7 @@ export default function ChatLog() {
         {chatLog.map((entry, index) => (
           <div key={index} className="flex flex-col space-y-4">
             <div className="flex justify-end">
-              <div className="bg-secondary max-w-[680px] h-[68px] p-[10px] rounded-lg">
+              <div className="bg-secondary max-w-[680px] min-h-[68px] p-[10px] rounded-lg">
                 <p className="font-light text-white p-3">{entry.userMessage}</p>
               </div>
             </div>
