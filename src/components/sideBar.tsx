@@ -7,26 +7,26 @@ import { ReactComponent as X } from '../assets/x.svg';
 import { ReactComponent as Edit } from '../assets/edit.svg';
 import { menuAtom } from '../store/menu';
 import { Textarea } from './ui/textarea';
-import { registerRole } from '../api/gpt';
+import { getRole, registerRole } from '../api/gpt';
 
 export default function SideBar() {
   const [value, setValue] = useState('');
   const setRole = useSetAtom(roleAtom);
   const [open, setOpen] = useAtom(menuAtom);
   const [typing, setTyping] = useState(false);
-
+  async function fetchData() {
+    const data = (await getRole()) as string;
+    setValue(data);
+    setRole(data);
+  }
   useEffect(() => {
-    async function fetchData() {
-      // const data = (await getRole()) as string;
-      // setValue(data);
-      // setRole(data);
-    }
     fetchData();
   }, []);
 
   const handleRole = async () => {
-    // await registerRole(value);
-    setValue('');
+    const role = await registerRole(value);
+    setValue(role);
+    setRole(role);
     setTyping(false);
   };
   return (
