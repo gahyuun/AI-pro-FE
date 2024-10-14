@@ -1,52 +1,78 @@
-import React, { useState } from "react";
-import { Textarea } from "./ui/textarea";
-import { Button } from "./ui/button";
-import { useAtom } from "jotai";
-import { roleAtom } from "../store/role";
+import React, { useEffect, useState } from 'react';
+import { useAtom, useSetAtom } from 'jotai';
+import { roleAtom } from '../store/role';
+import { ReactComponent as Menu } from '../assets/menu.svg';
+import { ReactComponent as Check } from '../assets/check.svg';
+import { ReactComponent as X } from '../assets/x.svg';
+import { ReactComponent as Edit } from '../assets/edit.svg';
+import { menuAtom } from '../store/menu';
+import { Textarea } from './ui/textarea';
+import { registerRole } from '../api/gpt';
 
 export default function SideBar() {
-  const [text, setText] = useState("");
-  const [role, setRole] = useAtom(roleAtom);
-  const handleSubmit: React.FormEventHandler<HTMLFormElement> = (event) => {
-    event.preventDefault();
-    setRole((prev) => [...prev, text]);
-    setText("");
-  };
+  const [value, setValue] = useState('');
+  const setRole = useSetAtom(roleAtom);
+  const [open, setOpen] = useAtom(menuAtom);
+  const [typing, setTyping] = useState(false);
 
+  useEffect(() => {
+    async function fetchData() {
+      // const data = (await getRole()) as string;
+      // setValue(data);
+      // setRole(data);
+    }
+    fetchData();
+  }, []);
+
+  const handleRole = async () => {
+    // await registerRole(value);
+    setValue('');
+    setTyping(false);
+  };
   return (
-    <div className="w-[20%] bg-secondary flex flex-col gap-10 p-3 h-screen fixed right-0">
-      <div className="flex flex-col h-[100%] ">
-        <h3 className="scroll-m-20  text-white p-4 text-lg font-semibold tracking-tight first:mt-0">
-          AI의 역할을 지정하여 더욱 효율적인 코칭을 경험해보세요!
-        </h3>
-        <div className="flex-grow overflow-auto">
-          <div className="flex flex-col gap-4">
-            {role.map((value) => (
-              <div className="bg-black text-white rounded-md p-2 text-sm">
-                "{value}"의 역할이 부여되었습니다
-              </div>
-            ))}
+    <>
+      {open && (
+        <div className="bg-secondary flex flex-col p-3 h-screen gap-4 ">
+          <div className="w-[40px] h-[40px]">
+            <Menu
+              onClick={() => {
+                setOpen(false);
+              }}
+              className="cursor-pointer"
+            />
           </div>
-        </div>
-        <form onSubmit={handleSubmit}>
-          <div className="flex items-center rounded-xl space-x-4 mt-10 bg-black">
+          <div>
+            <div className="flex items-center justify-between">
+              <p className="text-white text-sm py-2">ROLE</p>
+              {typing ? (
+                <div className="flex gap-2">
+                  <Check className="cursor-pointer" onClick={handleRole} />
+                  <X
+                    className="cursor-pointer"
+                    onClick={() => {
+                      setTyping(false);
+                    }}
+                  />
+                </div>
+              ) : (
+                <Edit
+                  className="cursor-pointer"
+                  onClick={() => {
+                    setTyping(true);
+                  }}
+                ></Edit>
+              )}
+            </div>
             <Textarea
-              placeholder="AI PRO에게 코드를 질문해보세요."
-              value={text}
+              readOnly={!typing}
+              value={value}
               onChange={(e) => {
-                setText(e.target.value);
+                setValue(e.target.value);
               }}
             />
-            <Button
-              variant="default"
-              type="submit"
-              className="bg-black text-white h-[100%]"
-            >
-              전송
-            </Button>
           </div>
-        </form>
-      </div>
-    </div>
+        </div>
+      )}
+    </>
   );
 }

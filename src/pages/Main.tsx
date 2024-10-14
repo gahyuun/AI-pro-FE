@@ -1,13 +1,11 @@
-import SideBar from "../components/sideBar";
-import Header from "../components/header";
-import Chat from "../components/chat";
+import SideBar from '../components/sideBar';
+import Chat from '../components/chat';
 
 export default function Main() {
   return (
-    <div className="flex flex-col bg-primary min-h-[100vh]">
-      <Header />
+    <div className="flex bg-primary h-screen">
+      <SideBar />
       <Chat />
-      {/*<SideBar />*/}
     </div>
   );
 }
