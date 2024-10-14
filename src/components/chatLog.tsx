@@ -52,14 +52,16 @@ export default function ChatLog() {
             </div>
             <div className="max-w-[660px] justify-start">
               <p className="font-semibold text-white">✨ AI-PRO</p>
-              <ReactMarkdown
-                className="font-light text-white p-3"
-                rehypePlugins={[rehypeRaw, rehypeHighlight]}
-              >
-                {entry.aiResponse === null
-                  ? "답변을 준비중입니다..."
-                  : entry.aiResponse}
-              </ReactMarkdown>
+              <div className="leading-9">
+                <ReactMarkdown
+                  className="font-light text-white p-3"
+                  rehypePlugins={[rehypeRaw, rehypeHighlight]}
+                >
+                  {entry.aiResponse === null
+                    ? "답변을 준비중입니다..."
+                    : entry.aiResponse}
+                </ReactMarkdown>
+              </div>
             </div>
           </div>
         ))}
