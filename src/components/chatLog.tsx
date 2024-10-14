@@ -3,6 +3,10 @@ import { getAnswer } from "../api/gpt";
 import ChatInput from "./chatInput";
 import { useAtom } from "jotai";
 import { chatLogAtom } from "../store/chatLog";
+import ReactMarkdown from "react-markdown";
+import rehypeRaw from "rehype-raw";
+import rehypeHighlight from "rehype-highlight";
+import "highlight.js/styles/a11y-dark.css";
 
 export default function ChatLog() {
   const [textAreaValue, setTextAreaValue] = useState("");
@@ -48,11 +52,14 @@ export default function ChatLog() {
             </div>
             <div className="max-w-[660px] justify-start">
               <p className="font-semibold text-white">✨ AI-PRO</p>
-              <p className="font-light text-white p-3">
+              <ReactMarkdown
+                className="font-light text-white p-3"
+                rehypePlugins={[rehypeRaw, rehypeHighlight]}
+              >
                 {entry.aiResponse === null
                   ? "답변을 준비중입니다..."
                   : entry.aiResponse}
-              </p>
+              </ReactMarkdown>
             </div>
           </div>
         ))}
