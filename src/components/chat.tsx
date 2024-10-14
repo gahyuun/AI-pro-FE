@@ -2,8 +2,6 @@ import { useState } from "react";
 import { Button } from "./ui/button";
 import { Textarea } from "./ui/textarea";
 import { getAnswer } from "../api/gpt";
-import { useAtom } from "jotai";
-import { roleAtom } from "../store/role";
 
 interface ChatEntry {
   userMessage: string;
@@ -13,7 +11,6 @@ interface ChatEntry {
 export default function Chat() {
   const [textAreaValue, setTextAreaValue] = useState("");
   const [chatLog, setChatLog] = useState<ChatEntry[]>([]);
-  const [role] = useAtom(roleAtom);
 
   const handleChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
     setTextAreaValue(event.target.value);
@@ -28,7 +25,7 @@ export default function Chat() {
     ]);
 
     try {
-      const response = await getAnswer(textAreaValue, "user1", role[0] || "");
+      const response = await getAnswer(textAreaValue, "user1");
       const aiResponse = response.message;
 
       setChatLog((prevChatLog) => {
