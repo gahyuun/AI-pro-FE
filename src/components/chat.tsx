@@ -45,9 +45,6 @@ export default function Chat() {
 
   return (
     <div className="w-[85%] flex flex-col mt-10 p-6 space-y-10">
-      <h2 className="scroll-m-20 pb-2 text-3xl font-semibold tracking-tight ml-16 text-white">
-        ✨ AI-PRO
-      </h2>
       <div className="flex flex-col p-8 w-[85%] mx-auto my-0 bg-secondary rounded-xl space-y-7">
         <div>
           <p className="font-semibold text-white">🤖 AI 코치</p>
