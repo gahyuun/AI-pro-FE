@@ -7,6 +7,7 @@ import ReactMarkdown from "react-markdown";
 import rehypeRaw from "rehype-raw";
 import rehypeHighlight from "rehype-highlight";
 import "highlight.js/styles/a11y-dark.css";
+import "../styles/markdown.css"
 
 export default function ChatLog() {
   const [textAreaValue, setTextAreaValue] = useState("");
