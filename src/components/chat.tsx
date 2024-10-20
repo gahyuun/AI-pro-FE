@@ -16,8 +16,8 @@ export default function Chat() {
   const [textAreaValue, setTextAreaValue] = useState("");
   const [, setChatLog] = useAtom(chatLogAtom);
 
-  const handleChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
-    setTextAreaValue(event.target.value);
+  const handleChange = (markdown:string) => {
+    setTextAreaValue(markdown);
   };
 
   useEffect(() => {
