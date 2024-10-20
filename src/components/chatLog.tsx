@@ -13,8 +13,8 @@ export default function ChatLog() {
   const [textAreaValue, setTextAreaValue] = useState("");
   const [chatLog, setChatLog] = useAtom(chatLogAtom);
 
-  const handleChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
-    setTextAreaValue(event.target.value);
+  const handleChange = (markdown:string) => {
+    setTextAreaValue(markdown);
   };
 
   const clickButton = async () => {
@@ -48,14 +48,19 @@ export default function ChatLog() {
           <div key={index} className="flex flex-col space-y-4">
             <div className="flex justify-end">
               <div className="bg-secondary max-w-[680px] min-h-[68px] p-[10px] rounded-lg">
-                <p className="text-white p-3">{entry.userMessage}</p>
+              <ReactMarkdown
+                  className="text-white p-3"
+                  rehypePlugins={[rehypeRaw, rehypeHighlight]}
+                >
+                  {entry.userMessage}
+                </ReactMarkdown>
               </div>
             </div>
             <div className="max-w-[660px] justify-start">
               <p className="font-semibold text-white">✨ AI-PRO</p>
               <div className="leading-9">
                 <ReactMarkdown
-                  className=" text-white p-3"
+                  className="text-white p-3"
                   rehypePlugins={[rehypeRaw, rehypeHighlight]}
                 >
                   {entry.aiResponse === null
