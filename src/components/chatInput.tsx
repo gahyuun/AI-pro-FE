@@ -32,10 +32,10 @@ export default function ChatInput({
   });
 
   return (
-    <div className={`py-5 flex w-full ${width} items-center`}>
+    <div className={`py-5 flex w-full ${width} items-center justify-center`}>
       <ThemeProvider>
           <Remirror
-          classNames={["bg-customBlack text-white max-h-[400px] w-[1006px] overflow-y-auto"]}
+          classNames={["bg-customBlack text-white overflow-y-auto"]}
             manager={manager}
             initialContent={state}
             autoRender='end'
@@ -48,7 +48,7 @@ export default function ChatInput({
       <Button
         variant="secondary"
         size="icon"
-        className="w-[90px] min-h-[80px]"
+        className="w-[90px]  min-h-[80px]"
         onClick={onClickSendButton}
       >
         <Send />

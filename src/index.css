@@ -18,9 +18,9 @@ code {
 }
 
 .remirror-theme .ProseMirror {
-
   min-height: 80px !important;
-  width: 1000px !important;
+  max-height: 400px !important;
+  width: 800px !important;
   border-radius: 3px !important;
 
   color:white !important;
