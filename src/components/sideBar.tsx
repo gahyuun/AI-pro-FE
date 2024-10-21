@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useAtom, useSetAtom } from 'jotai';
 import { roleAtom } from '../store/role';
 import { ReactComponent as Menu } from '../assets/menu.svg';
@@ -31,48 +31,34 @@ export default function SideBar() {
   };
   return (
     <>
-      {open && (
-        <div className="bg-secondary flex flex-col p-3 h-screen gap-4 ">
-          <div className="w-[40px] h-[40px]">
-            <Menu
-              onClick={() => {
-                setOpen(false);
-              }}
+      <div className="flex items-center justify-between">
+        <p className="text-white text-sm py-2">아래의 내용이 AI-PRO의 역할로 지정되어 있습니다.</p>
+        {typing ? (
+          <div className="flex gap-2">
+            <Check className="cursor-pointer" onClick={handleRole} />
+            <X
               className="cursor-pointer"
-            />
-          </div>
-          <div>
-            <div className="flex items-center justify-between">
-              <p className="text-white text-sm py-2">ROLE</p>
-              {typing ? (
-                <div className="flex gap-2">
-                  <Check className="cursor-pointer" onClick={handleRole} />
-                  <X
-                    className="cursor-pointer"
-                    onClick={() => {
-                      setTyping(false);
-                    }}
-                  />
-                </div>
-              ) : (
-                <Edit
-                  className="cursor-pointer"
-                  onClick={() => {
-                    setTyping(true);
-                  }}
-                ></Edit>
-              )}
-            </div>
-            <Textarea
-              readOnly={!typing}
-              value={value}
-              onChange={(e) => {
-                setValue(e.target.value);
+              onClick={() => {
+                setTyping(false);
               }}
             />
           </div>
-        </div>
-      )}
+        ) : (
+          <Edit
+            className="cursor-pointer"
+            onClick={() => {
+              setTyping(true);
+            }}
+          ></Edit>
+        )}
+      </div>
+      <Textarea
+        readOnly={!typing}
+        value={value}
+        onChange={(e) => {
+          setValue(e.target.value);
+        }}
+      />
     </>
   );
 }
