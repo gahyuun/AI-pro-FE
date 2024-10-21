@@ -66,12 +66,13 @@ export default function Chat() {
           ) : (
             <p className="text-white text-2xl font-semibold">AI-PRO에 요청할 피드백과 코드를 입력해주세요.</p>
           )}
+          <div className="flex justify-center mb-5">
           <ChatInput
             textAreaValue={textAreaValue}
             handleChange={handleChange}
             onClickSendButton={onClickSendButton}
-            size="big"
           />
+          </div>
         </div>
       )}
     </>

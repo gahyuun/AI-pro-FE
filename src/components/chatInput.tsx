@@ -10,16 +10,13 @@ interface ChatInputProps {
   textAreaValue: string;
   handleChange: (markdown: string) => void;
   onClickSendButton: () => void;
-  size: 'big' | 'small';
 }
 
 export default function ChatInput({
   textAreaValue,
   handleChange,
   onClickSendButton,
-  size,
 }: ChatInputProps) {
-  const width = size === 'big' ? 'w-[1200px]' : 'w-[888px]';
 
   const { manager, state } = useRemirror({
     extensions: () => [new MarkdownExtension({}), new HardBreakExtension({}), new CodeBlockExtension({
@@ -32,7 +29,7 @@ export default function ChatInput({
   });
 
   return (
-    <div className={`py-5 flex w-full ${width} items-center justify-center`}>
+    <div className={`py-5 flex w-[1200px] items-center justify-center min-h-[100px] max-h-[340px]`}>
       <ThemeProvider>
           <Remirror
           classNames={["bg-customBlack text-white overflow-y-auto"]}
@@ -48,7 +45,7 @@ export default function ChatInput({
       <Button
         variant="secondary"
         size="icon"
-        className="w-[90px]  min-h-[80px]"
+        className="w-[90px] min-h-[80px] h-full"
         onClick={onClickSendButton}
       >
         <Send />

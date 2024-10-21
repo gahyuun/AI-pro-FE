@@ -72,12 +72,11 @@ export default function ChatLog() {
           </div>
         ))}
       </div>
-      <div className="fixed bottom-0 w-[1000px] flex justify-center mb-5">
+      <div className="fixed bottom-0 flex justify-center mb-5">
         <ChatInput
           textAreaValue={textAreaValue}
           handleChange={handleChange}
           onClickSendButton={clickButton}
-          size="small"
         />
       </div>
     </div>
