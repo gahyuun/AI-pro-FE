@@ -3,6 +3,7 @@ import { Remirror, useRemirror, ThemeProvider } from '@remirror/react';
 import { CodeBlockExtension, HardBreakExtension, MarkdownExtension } from 'remirror/extensions';
 import { ReactComponent as Send } from '../assets/send.svg';
 import { Button } from './ui/button';
+import java from 'refractor/lang/java.js';
 
 import '@remirror/styles/all.css';
 
@@ -21,7 +22,8 @@ export default function ChatInput({
   const { manager, state } = useRemirror({
     extensions: () => [new MarkdownExtension({}), new HardBreakExtension({}), new CodeBlockExtension({
       defaultLanguage: 'java',
-      syntaxTheme: 'base16_ateliersulphurpool_light',
+      supportedLanguages: [java],
+      syntaxTheme: 'cb',
       defaultWrap: true,
     })],
     content: textAreaValue,
