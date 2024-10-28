@@ -49,7 +49,7 @@ export default function ChatLog() {
   };
 
   return (
-    <div className="w-[888px] flex flex-col mx-auto my-auto p-6 items-center border-2 border-red-500">
+    <div className="w-[888px] flex flex-col mx-auto my-auto p-6 items-center">
       <div
         className="flex flex-col space-y-4 overflow-y-auto h-[calc(100vh-250px)] w-[100%] px-4 mb-32"
         ref={chatElement}
