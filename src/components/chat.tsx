@@ -6,12 +6,9 @@ import { chatLogAtom } from '../store/chatLog';
 import { getAnswer } from '../api/gpt';
 import ChatInput from './chatInput';
 import ChatLog from './chatLog';
-import { ReactComponent as Menu } from '../assets/menu.svg';
-import { menuAtom } from '../store/menu';
 
 export default function Chat() {
   const [role] = useAtom(roleAtom);
-  const [open, setOpen] = useAtom(menuAtom);
   const [isSend, setIsSend] = useAtom(sendChatAtom);
   const [textAreaValue, setTextAreaValue] = useState('');
   const [, setChatLog] = useAtom(chatLogAtom);
@@ -67,11 +64,11 @@ export default function Chat() {
             <p className="text-white text-2xl font-semibold">AI-PRO에 요청할 피드백과 코드를 입력해주세요.</p>
           )}
           <div className="flex justify-center mb-5">
-          <ChatInput
-            textAreaValue={textAreaValue}
-            handleChange={handleChange}
-            onClickSendButton={onClickSendButton}
-          />
+            <ChatInput
+              textAreaValue={textAreaValue}
+              handleChange={handleChange}
+              onClickSendButton={onClickSendButton}
+            />
           </div>
         </div>
       )}
