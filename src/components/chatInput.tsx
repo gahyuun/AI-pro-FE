@@ -30,6 +30,8 @@ export default function ChatInput({
     stringHandler: 'markdown',
   });
 
+  
+
   return (
     <div className={`py-5 flex w-[1200px] items-center justify-center min-h-[100px] max-h-[340px]`}>
       <ThemeProvider>
@@ -38,6 +40,7 @@ export default function ChatInput({
             manager={manager}
             initialContent={state}
             autoRender='end'
+            placeholder='질문을 입력하세요.'
             onChange={(params) => {
               const markdown = params.helpers.getMarkdown();
               handleChange(markdown); 
