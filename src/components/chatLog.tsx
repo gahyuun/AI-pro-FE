@@ -6,14 +6,17 @@ import { chatLogAtom } from '../store/chatLog';
 import ReactMarkdown from 'react-markdown';
 import rehypeRaw from 'rehype-raw';
 import rehypeHighlight from 'rehype-highlight';
+import Lottie from 'lottie-react'; // lottie-react에서 Lottie 컴포넌트 사용
 import 'highlight.js/styles/a11y-dark.css';
 import '../styles/markdown.css';
+import loadingAnimation from '../assets/loading.json'; // 로티 파일 경로
 
 export default function ChatLog() {
   const chatElement = useRef<HTMLDivElement>(null);
 
   const [textAreaValue, setTextAreaValue] = useState('');
   const [chatLog, setChatLog] = useAtom(chatLogAtom);
+  const [dots, setDots] = useState(''); // 점을 위한 상태 추가
 
   useEffect(() => {
     if (!chatElement.current) return;
@@ -22,6 +25,15 @@ export default function ChatLog() {
       top: chatElement.current.scrollHeight,
     });
   }, [chatLog]);
+
+  useEffect(() => {
+    // 점을 0.5초마다 업데이트하는 애니메이션 효과
+    const interval = setInterval(() => {
+      setDots((prev) => (prev.length < 3 ? prev + '.' : ''));
+    }, 500);
+
+    return () => clearInterval(interval); // 컴포넌트 언마운트 시 인터벌 제거
+  }, []);
 
   const handleChange = (markdown: string) => {
     setTextAreaValue(markdown);
@@ -66,9 +78,20 @@ export default function ChatLog() {
             <div className="max-w-[660px] justify-start">
               <p className="font-semibold text-white">✨ AI-PRO</p>
               <div className="leading-9">
-                <ReactMarkdown className="text-white p-3" rehypePlugins={[rehypeRaw, rehypeHighlight]}>
-                  {entry.aiResponse === null ? '답변을 준비중입니다...' : entry.aiResponse}
-                </ReactMarkdown>
+                {entry.aiResponse === null ? (
+                  <div className="flex flex-col items-start">
+                    <Lottie
+                      animationData={loadingAnimation}
+                      className="w-[100px] h-[100px]"
+                      loop={true}
+                    />
+                    <p className="text-white mt-4">답변이 준비중입니다{dots}</p> {/* 점 애니메이션 추가 */}
+                  </div>
+                ) : (
+                  <ReactMarkdown className="text-white p-3" rehypePlugins={[rehypeRaw, rehypeHighlight]}>
+                    {entry.aiResponse}
+                  </ReactMarkdown>
+                )}
               </div>
             </div>
           </div>
