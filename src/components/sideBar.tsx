@@ -5,24 +5,19 @@ import { ReactComponent as Check } from '../assets/check.svg';
 import { ReactComponent as X } from '../assets/x.svg';
 import { ReactComponent as Edit } from '../assets/edit.svg';
 import { Textarea } from './ui/textarea';
-import { getRole, registerRole } from '../api/gpt';
+import { registerRole } from '../api/gpt';
 
 export default function SideBar() {
   const [value, setValue] = useState('');
   const [role, setRole] = useAtom(roleAtom);
   const [typing, setTyping] = useState(false);
-  async function fetchData() {
-    const data = (await getRole()) as string;
-    setValue(data);
-    setRole(data);
-  }
+
   useEffect(() => {
-    fetchData();
-  }, []);
+    setValue(role);
+  }, [role]);
 
   const handleRole = async () => {
     const role = await registerRole(value);
-    setValue(role);
     setRole(role);
     setTyping(false);
   };
