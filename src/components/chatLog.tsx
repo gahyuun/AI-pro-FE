@@ -6,17 +6,18 @@ import { chatLogAtom } from '../store/chatLog';
 import ReactMarkdown from 'react-markdown';
 import rehypeRaw from 'rehype-raw';
 import rehypeHighlight from 'rehype-highlight';
-import Lottie from 'lottie-react'; // lottie-react에서 Lottie 컴포넌트 사용
+import Lottie from 'lottie-react';
 import 'highlight.js/styles/a11y-dark.css';
 import '../styles/markdown.css';
-import loadingAnimation from '../assets/loading.json'; // 로티 파일 경로
+import loadingAnimation from '../assets/loading.json';
 
 export default function ChatLog() {
   const chatElement = useRef<HTMLDivElement>(null);
 
   const [textAreaValue, setTextAreaValue] = useState('');
   const [chatLog, setChatLog] = useAtom(chatLogAtom);
-  const [dots, setDots] = useState(''); // 점을 위한 상태 추가
+  const [dots, setDots] = useState('');
+  const [editorKey, setEditorKey] = useState(0); 
 
   useEffect(() => {
     if (!chatElement.current) return;
@@ -27,12 +28,11 @@ export default function ChatLog() {
   }, [chatLog]);
 
   useEffect(() => {
-    // 점을 0.5초마다 업데이트하는 애니메이션 효과
     const interval = setInterval(() => {
       setDots((prev) => (prev.length < 3 ? prev + '.' : ''));
     }, 500);
 
-    return () => clearInterval(interval); // 컴포넌트 언마운트 시 인터벌 제거
+    return () => clearInterval(interval);
   }, []);
 
   const handleChange = (markdown: string) => {
@@ -41,6 +41,9 @@ export default function ChatLog() {
 
   const clickButton = async () => {
     if (!textAreaValue.trim()) return;
+
+    setTextAreaValue('');
+    setEditorKey((prevKey) => prevKey + 1);
 
     setChatLog((prevChatLog) => [...prevChatLog, { userMessage: textAreaValue, aiResponse: null }]);
 
@@ -55,8 +58,6 @@ export default function ChatLog() {
       });
     } catch (error) {
       console.error('Error fetching AI response:', error);
-    } finally {
-      setTextAreaValue('');
     }
   };
 
@@ -80,12 +81,8 @@ export default function ChatLog() {
               <div className="leading-9">
                 {entry.aiResponse === null ? (
                   <div className="flex flex-col items-start">
-                    <Lottie
-                      animationData={loadingAnimation}
-                      className="w-[100px] h-[100px]"
-                      loop={true}
-                    />
-                    <p className="text-white mt-4">답변이 준비중입니다{dots}</p> {/* 점 애니메이션 추가 */}
+                    <Lottie animationData={loadingAnimation} className="w-[100px] h-[100px]" loop={true} />
+                    <p className="text-white mt-4">답변이 준비중입니다{dots}</p>
                   </div>
                 ) : (
                   <ReactMarkdown className="text-white p-3" rehypePlugins={[rehypeRaw, rehypeHighlight]}>
@@ -98,7 +95,12 @@ export default function ChatLog() {
         ))}
       </div>
       <div className="fixed bottom-0 flex justify-center mb-5">
-        <ChatInput textAreaValue={textAreaValue} handleChange={handleChange} onClickSendButton={clickButton} />
+        <ChatInput
+          key={editorKey}
+          textAreaValue={textAreaValue}
+          handleChange={handleChange}
+          onClickSendButton={clickButton}
+        />
       </div>
     </div>
   );

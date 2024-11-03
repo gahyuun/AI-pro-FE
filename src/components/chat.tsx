@@ -12,6 +12,7 @@ export default function Chat() {
   const [isSend, setIsSend] = useAtom(sendChatAtom);
   const [textAreaValue, setTextAreaValue] = useState('');
   const [, setChatLog] = useAtom(chatLogAtom);
+  const [editorKey, setEditorKey] = useState(0); 
 
   const handleChange = (markdown: string) => {
     setTextAreaValue(markdown);
@@ -28,6 +29,9 @@ export default function Chat() {
 
     setIsSend(true);
 
+    setTextAreaValue('');
+    setEditorKey((prevKey) => prevKey + 1);
+
     setChatLog((prevChatLog) => [...prevChatLog, { userMessage: textAreaValue, aiResponse: null }]);
 
     try {
@@ -41,8 +45,6 @@ export default function Chat() {
       });
     } catch (error) {
       console.error('Error fetching AI response:', error);
-    } finally {
-      setTextAreaValue('');
     }
   };
 
@@ -65,6 +67,7 @@ export default function Chat() {
           )}
           <div className="flex justify-center mb-5">
             <ChatInput
+               key={editorKey}
               textAreaValue={textAreaValue}
               handleChange={handleChange}
               onClickSendButton={onClickSendButton}
