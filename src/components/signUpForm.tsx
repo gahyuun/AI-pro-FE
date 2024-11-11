@@ -5,6 +5,7 @@ import { Form } from './ui/form';
 import { RHFInput } from './ui/RHFInput';
 import { Button } from './ui/button';
 import { IdInput } from './ui/idInput';
+import { signUp } from '../api/user';
 
 export function SignUpForm() {
   const form = useForm<SignUpPayload>({
@@ -16,7 +17,16 @@ export function SignUpForm() {
   const passwordConfirmation = useWatch({ control: form.control, name: 'passwordConfirmation' });
 
   const handleFormSubmit = (data: SignUpPayload) => {
-    console.log(data);
+    try {
+      signUp({
+        userid: data.id,
+        password: data.password,
+        username: data.name,
+      });
+      alert('회원가입에 성공했습니다');
+    } catch (error) {
+      alert(error);
+    }
   };
 
   return (

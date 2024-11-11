@@ -14,19 +14,21 @@ interface idInputProps {
   errorMsg: string;
 }
 export function IdInput({ name, label, placeholder, type, errorMsg }: idInputProps) {
-  const [isDuplicate, setIsDuplicate] = useState(false);
+  const [isDuplicate, setIsDuplicate] = useState(0); // 확인 안함
   const form = useFormContext();
   const id = useWatch({ control: form.control, name: 'id' });
   const validateId = async () => {
-    // const data = await checkDuplicate(id);
-    // if (data) {
-    //   setIsDuplicate(true);
-    // }
-    setIsDuplicate(true);
+    const data = await checkDuplicate(id);
+
+    if (!data) {
+      setIsDuplicate(1);
+    } else {
+      setIsDuplicate(2); // 중복 검사 완료
+    }
   };
 
   useEffect(() => {
-    if (isDuplicate) setIsDuplicate(false);
+    if (isDuplicate) setIsDuplicate(0);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [id]);
 
@@ -53,7 +55,10 @@ export function IdInput({ name, label, placeholder, type, errorMsg }: idInputPro
             </Button>
           </div>
 
-          <div className="text-[#FECACA]">{errorMsg ? errorMsg : isDuplicate ? '사용할 수 없는 아이디입니다' : ''}</div>
+          <div className="text-[#FECACA]">
+            {errorMsg ? errorMsg : isDuplicate === 1 ? '사용할 수 없는 아이디입니다' : ''}
+          </div>
+          <div className="text-[#93C5FD]">{isDuplicate === 2 ? '사용할 수 있는 아이디입니다' : ''}</div>
         </FormItem>
       )}
     />
