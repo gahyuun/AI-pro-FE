@@ -17,7 +17,7 @@ export default function ChatLog() {
   const [textAreaValue, setTextAreaValue] = useState('');
   const [chatLog, setChatLog] = useAtom(chatLogAtom);
   const [dots, setDots] = useState('');
-  const [editorKey, setEditorKey] = useState(0); 
+  const [editorKey, setEditorKey] = useState(0);
 
   useEffect(() => {
     if (!chatElement.current) return;
@@ -82,7 +82,7 @@ export default function ChatLog() {
                 {entry.aiResponse === null ? (
                   <div className="flex flex-col items-start">
                     <Lottie animationData={loadingAnimation} className="w-[100px] h-[100px]" loop={true} />
-                    <p className="text-white mt-4">답변이 준비중입니다{dots}</p>
+                    <p className="text-white mt-4">답변을 준비중입니다{dots}</p>
                   </div>
                 ) : (
                   <ReactMarkdown className="text-white p-3" rehypePlugins={[rehypeRaw, rehypeHighlight]}>
