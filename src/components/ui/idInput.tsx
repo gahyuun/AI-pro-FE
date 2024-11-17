@@ -6,17 +6,27 @@ import { Input } from './input';
 import { Button } from './button';
 import { checkDuplicate } from '../../api/user';
 
-interface idInputProps {
+interface IdInputProps {
   name: string;
   label: string;
   placeholder: string;
   type?: HTMLInputTypeAttribute;
   errorMsg: string;
+  showDuplicateCheck?: boolean;
 }
-export function IdInput({ name, label, placeholder, type, errorMsg }: idInputProps) {
+
+export function IdInput({
+  name,
+  label,
+  placeholder,
+  type,
+  errorMsg,
+  showDuplicateCheck = true, // 기본값 true
+}: IdInputProps) {
   const [isDuplicate, setIsDuplicate] = useState(0); // 확인 안함
   const form = useFormContext();
   const id = useWatch({ control: form.control, name: 'id' });
+
   const validateId = async () => {
     const data = await checkDuplicate(id);
 
@@ -45,14 +55,16 @@ export function IdInput({ name, label, placeholder, type, errorMsg }: idInputPro
             <FormControl>
               <Input placeholder={placeholder} {...field} type={type} />
             </FormControl>
-            <Button
-              type="button"
-              className="bg-[#93C5FD] hover:bg-[#93C5FD]"
-              onClick={validateId}
-              disabled={errorMsg !== '' || id === undefined}
-            >
-              중복확인
-            </Button>
+            {showDuplicateCheck && ( // showDuplicateCheck에 따라 버튼 표시 여부 결정
+              <Button
+                type="button"
+                className="bg-[#93C5FD] hover:bg-[#93C5FD]"
+                onClick={validateId}
+                disabled={errorMsg !== '' || id === undefined}
+              >
+                중복확인
+              </Button>
+            )}
           </div>
 
           <div className="text-[#FECACA]">

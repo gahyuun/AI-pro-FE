@@ -49,8 +49,15 @@ const signUpSchema = z
     message: '비밀번호가 일치하지 않습니다.',
   });
 
+const signInSchema = z.object({
+  id: idSchema,
+  password: passwordSchema,
+});
+
 export type SignUpPayload = z.infer<typeof signUpSchema>;
+export type SignInPayload = z.infer<typeof signInSchema>;
 
 export const userSchemas = {
   signUpSchema,
+  signInSchema,
 };
