@@ -61,6 +61,7 @@ export function SignInForm() {
   const isPasswordValid = !!password && !form.formState.errors.password;
 
   return (
+    <>
     <Form {...form}>
       <form className="space-y-8" onSubmit={form.handleSubmit(handleFormSubmit)}>
         <div className="grid gap-4">
@@ -104,5 +105,12 @@ export function SignInForm() {
         </div>
       </form>
     </Form>
+     {step==="id" && <div className="flex justify-center items-center mt-1">
+     <p className='text-white text-sm'>아직 회원이 아니신가요?</p>
+   <Button variant="link" className="text-blue-300" onClick={() => navigate('/sign-up')}>
+     회원가입
+   </Button>
+ </div>}
+ </>
   );
 }
