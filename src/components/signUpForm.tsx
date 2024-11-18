@@ -17,7 +17,6 @@ export function SignUpForm() {
 
   const password = useWatch({ control: form.control, name: 'password' });
   const passwordConfirmation = useWatch({ control: form.control, name: 'passwordConfirmation' });
-  const navigate = useNavigate();
 
   const handleFormSubmit = (data: SignUpPayload) => {
     try {
