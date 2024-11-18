@@ -22,6 +22,10 @@ export default function Chat() {
     setIsSend(false);
   }, [setIsSend]);
 
+  useEffect(()=>{
+    console.log(role.length);
+  },[role])
+
   const slicedRole = role.length > 30 ? role.slice(0, 30) + '...' : role;
 
   const onClickSendButton = async () => {
@@ -54,7 +58,7 @@ export default function Chat() {
         <ChatLog />
       ) : (
         <div className="w-[1116px] flex flex-col jusfity-center mx-auto my-auto items-center gap-7">
-          {role.length !== 0 ? (
+          {role.trim().length !== 0 ? (
             <div className="flex flex-col items-center">
               <div className="flex gap-3">
                 <p className="text-white text-2xl font-medium">{slicedRole} </p>
