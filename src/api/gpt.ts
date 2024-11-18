@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { Cookies } from 'react-cookie';
 
 export const getAnswer = async (question: string, userId: string) => {
   const { data } = await axios.post(`${process.env.REACT_APP_API_URL}/api/chat/question` as string, {
@@ -20,8 +21,18 @@ export const registerRole = async (role: string) => {
 };
 
 export const getChatList = async () => {
+  const cookies = new Cookies();
+  const getAccessToken = () => {
+    const accessToken = cookies.get('accessToken'); // 쿠키 값 가져오기
+    return accessToken;
+  };
   const { data } = await axios.get<{ catalogId: number; summary: string; userId: string }[]>(
-    `${process.env.REACT_APP_API_URL}/api/getChatCatalog`
+    `${process.env.REACT_APP_API_URL}/api/getChatCatalog`,
+    {
+      headers: {
+        Authorization: `Bearer ${getAccessToken()}`,
+      },
+    }
   );
 
   return data;
