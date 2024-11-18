@@ -25,8 +25,8 @@ export function SignUpForm() {
         password: data.password,
         username: data.name,
       });
-      alert('회원가입에 성공했습니다');
-      navigate('/sign-in');
+      alert('회원가입에 성공했습니다. 로그인 화면으로 이동합니다.');
+      navigate('/sign-in')
     } catch (error) {
       alert(error);
     }
