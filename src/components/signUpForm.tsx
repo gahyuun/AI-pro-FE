@@ -13,6 +13,7 @@ export function SignUpForm() {
     mode: 'onChange',
     resolver: zodResolver(userSchemas.signUpSchema),
   });
+  const navigate = useNavigate();
 
   const password = useWatch({ control: form.control, name: 'password' });
   const passwordConfirmation = useWatch({ control: form.control, name: 'passwordConfirmation' });
