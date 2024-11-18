@@ -11,7 +11,7 @@ export default function Header() {
           <SheetTrigger>
             <Menu />
           </SheetTrigger>
-          <SheetContent side="left" className="w-[480px] bg-secondary pt-[56px] border-0">
+          <SheetContent side="left" className="w-[480px] bg-secondary pt-[56px] border-0 overflow-y-scroll">
             <SideBar />
           </SheetContent>
         </Sheet>
