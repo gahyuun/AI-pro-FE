@@ -49,7 +49,6 @@ export default function ChatLog() {
 
     try {
       const response = await getAnswer(textAreaValue);
-      console.log(response);
       const aiResponse = response.message;
 
       setChatLog((prevChatLog) => {
