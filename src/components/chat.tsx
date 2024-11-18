@@ -22,10 +22,6 @@ export default function Chat() {
     setIsSend(false);
   }, [setIsSend]);
 
-  useEffect(()=>{
-    console.log(role.length);
-  },[role])
-
   const slicedRole = role.length > 30 ? role.slice(0, 30) + '...' : role;
 
   const onClickSendButton = async () => {
