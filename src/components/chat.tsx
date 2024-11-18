@@ -37,12 +37,18 @@ export default function Chat() {
     try {
       const response = await getAnswer(textAreaValue);
       const aiResponse = response.message;
+      const catalogId = response.catalogId;
 
       setChatLog((prevChatLog) => {
         const updatedLog = [...prevChatLog];
         updatedLog[updatedLog.length - 1].aiResponse = aiResponse;
         return updatedLog;
       });
+
+      if (catalogId) {
+        // URL만 변경, 화면은 새로 렌더링하지 않음
+        window.history.pushState({}, '', `/chat/${catalogId}`);
+      }
     } catch (error) {
       console.error('Error fetching AI response:', error);
     }
@@ -53,7 +59,7 @@ export default function Chat() {
       {isSend ? (
         <ChatLog />
       ) : (
-        <div className="w-[1116px] flex flex-col jusfity-center mx-auto my-auto items-center gap-7">
+        <div className="w-[1116px] flex flex-col justify-center mx-auto my-auto items-center gap-7">
           {role.trim().length !== 0 ? (
             <div className="flex flex-col items-center">
               <div className="flex gap-3">
@@ -67,7 +73,7 @@ export default function Chat() {
           )}
           <div className="flex justify-center mb-5">
             <ChatInput
-               key={editorKey}
+              key={editorKey}
               textAreaValue={textAreaValue}
               handleChange={handleChange}
               onClickSendButton={onClickSendButton}
