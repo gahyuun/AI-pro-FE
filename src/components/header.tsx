@@ -10,19 +10,14 @@ import {
 } from './ui/dropdown-menu';
 import { useCookies } from 'react-cookie';
 import { useNavigate } from 'react-router-dom';
-import { useAtom } from 'jotai';
-import { roleAtom } from '../store/role';
 
 export default function Header() {
   const navigate = useNavigate();
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [cookies, setCookie, removeCookie] = useCookies(['accessToken']);
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [role, setRole] = useAtom(roleAtom);
 
   const handleLogout = () => {
-    setRole(''); 
     removeCookie('accessToken');
     navigate('/sign-in');
   }
