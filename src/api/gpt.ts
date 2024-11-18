@@ -8,10 +8,10 @@ const getAccessToken = () => {
   return accessToken;
 };
 
-export const getAnswer = async (question: string, userId: string) => {
+export const getAnswer = async (question: string) => {
   const { data } = await axios.post(
     `${process.env.REACT_APP_API_URL}/api/chat/question` as string,
-    { question, userId },
+    { question},
     {
       headers: {
         Authorization: `${getAccessToken()}`,

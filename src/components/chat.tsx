@@ -35,7 +35,7 @@ export default function Chat() {
     setChatLog((prevChatLog) => [...prevChatLog, { userMessage: textAreaValue, aiResponse: null }]);
 
     try {
-      const response = await getAnswer(textAreaValue, 'user1');
+      const response = await getAnswer(textAreaValue);
       const aiResponse = response.message;
 
       setChatLog((prevChatLog) => {
