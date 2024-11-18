@@ -6,12 +6,14 @@ import { RHFInput } from './ui/RHFInput';
 import { Button } from './ui/button';
 import { IdInput } from './ui/idInput';
 import { signUp } from '../api/user';
+import { useNavigate } from 'react-router-dom';
 
 export function SignUpForm() {
   const form = useForm<SignUpPayload>({
     mode: 'onChange',
     resolver: zodResolver(userSchemas.signUpSchema),
   });
+  const navigate = useNavigate();
 
   const password = useWatch({ control: form.control, name: 'password' });
   const passwordConfirmation = useWatch({ control: form.control, name: 'passwordConfirmation' });
@@ -24,6 +26,7 @@ export function SignUpForm() {
         username: data.name,
       });
       alert('회원가입에 성공했습니다');
+      navigate('/sign-in');
     } catch (error) {
       alert(error);
     }
