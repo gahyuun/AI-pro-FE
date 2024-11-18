@@ -9,6 +9,7 @@ import { checkDuplicate, signIn } from '../api/user';
 import { useState } from 'react';
 import { useCookies } from 'react-cookie';
 import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 
 export function SignInForm() {
   const [step, setStep] = useState<'id' | 'password'>('id');
@@ -53,7 +54,11 @@ export function SignInForm() {
       setCookie('accessToken', token, { path: '/'});
       navigate('/chat');
     } catch (error) {
+      if(axios.isAxiosError(error)){
+        if(error.response?.status===401)
         setPwError('비밀번호가 일치하지 않습니다.');
+      }
+      console.log(error);
     }
   };
 
