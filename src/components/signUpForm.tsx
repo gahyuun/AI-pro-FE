@@ -6,6 +6,7 @@ import { RHFInput } from './ui/RHFInput';
 import { Button } from './ui/button';
 import { IdInput } from './ui/idInput';
 import { signUp } from '../api/user';
+import { useNavigate } from 'react-router-dom';
 
 export function SignUpForm() {
   const form = useForm<SignUpPayload>({
@@ -15,6 +16,7 @@ export function SignUpForm() {
 
   const password = useWatch({ control: form.control, name: 'password' });
   const passwordConfirmation = useWatch({ control: form.control, name: 'passwordConfirmation' });
+  const navigate = useNavigate();
 
   const handleFormSubmit = (data: SignUpPayload) => {
     try {
@@ -23,7 +25,8 @@ export function SignUpForm() {
         password: data.password,
         username: data.name,
       });
-      alert('회원가입에 성공했습니다');
+      alert('회원가입에 성공했습니다. 로그인 화면으로 이동합니다.');
+      navigate('/sign-in')
     } catch (error) {
       alert(error);
     }
