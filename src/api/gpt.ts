@@ -14,7 +14,7 @@ export const getAnswer = async (question: string) => {
     { question},
     {
       headers: {
-        Authorization: `${getAccessToken()}`,
+        Authorization: `Bearer ${getAccessToken()}`,
       },
     }
   );
@@ -26,7 +26,7 @@ export const getRole = async () => {
     `${process.env.REACT_APP_API_URL}/api/role/get`,
     {
       headers: {
-        Authorization: `${getAccessToken()}`,
+        Authorization: `Bearer ${getAccessToken()}`,
       },
     }
   );
@@ -39,7 +39,7 @@ export const registerRole = async (role: string) => {
     { role },
     {
       headers: {
-        Authorization: `${getAccessToken()}`,
+        Authorization: `Bearer ${getAccessToken()}`,
       },
     }
   );
@@ -51,7 +51,7 @@ export const getChatList = async () => {
     `${process.env.REACT_APP_API_URL}/api/getChatCatalog`,
     {
       headers: {
-        Authorization: `${getAccessToken()}`,
+        Authorization: `Bearer ${getAccessToken()}`,
       },
     }
   );
