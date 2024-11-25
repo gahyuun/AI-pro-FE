@@ -6,7 +6,7 @@ test.describe('Sign Up Page', () => {
   });
 
   test('사용자는 중복 확인을 통해 회원가입이 가능한 아이디인지 확인할 수 있다.', async ({ page }) => {
-    await page.fill('input[name="id"]', 'testid3');
+    await page.fill('input[name="id"]', 'testid6');
     await page.waitForTimeout(1000);
     await page.click('text=중복확인');
     await page.waitForTimeout(1000);
@@ -15,7 +15,7 @@ test.describe('Sign Up Page', () => {
   });
 
   test('사용자는 회원 정보를 입력해 회원가입을 성공할 수 있다.', async ({ page }) => {
-    await page.fill('input[name="id"]', 'testid3');
+    await page.fill('input[name="id"]', 'testid6');
     await page.waitForTimeout(2000);
     await page.fill('input[name="password"]', 'abcd1234!');
     await page.waitForTimeout(2000);
@@ -52,7 +52,7 @@ test.describe('Sign Up Page', () => {
 
     await page.fill('input[name="passwordConfirmation"]', 'b');
     await page.waitForTimeout(2000);
-    const passwordConfirmationErrorMessage = await page.locator('text=비밀번호는 8자 이상 16자 이내여야 합니다');
+    const passwordConfirmationErrorMessage = await page.locator('text=비밀번호가 일치하지 않습니다');
     await expect(passwordConfirmationErrorMessage).toBeVisible();
   });
 });
