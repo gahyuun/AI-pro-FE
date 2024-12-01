@@ -50,7 +50,7 @@ export default function Chat() {
     setChatLog((prevChatLog) => [...prevChatLog, { userMessage: textAreaValue, aiResponse: null }]);
 
     try {
-      const response = await getAnswer(textAreaValue);
+      const response = await getAnswer(textAreaValue, catalogId ? Number(catalogId) : undefined);
       const aiResponse = response.message;
       const newCatalogId = response.catalogId;
 

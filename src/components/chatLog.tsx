@@ -10,8 +10,10 @@ import Lottie from 'lottie-react';
 import 'highlight.js/styles/a11y-dark.css';
 import '../styles/markdown.css';
 import loadingAnimation from '../assets/loading.json';
+import { useParams } from 'react-router-dom';
 
 export default function ChatLog() {
+  const { id: catalogId } = useParams();
   const chatElement = useRef<HTMLDivElement>(null);
 
   const [textAreaValue, setTextAreaValue] = useState('');
@@ -48,7 +50,7 @@ export default function ChatLog() {
     setChatLog((prevChatLog) => [...prevChatLog, { userMessage: textAreaValue, aiResponse: null }]);
 
     try {
-      const response = await getAnswer(textAreaValue);
+      const response = await getAnswer(textAreaValue, catalogId ? Number(catalogId) : undefined); // Pass catalogId here
       const aiResponse = response.message;
 
       setChatLog((prevChatLog) => {
