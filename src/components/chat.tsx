@@ -1,36 +1,49 @@
 import { useAtom } from 'jotai';
 import { roleAtom } from '../store/role';
-import { useEffect, useState } from 'react';
-import { sendChatAtom } from '../store/sendChat';
 import { chatLogAtom } from '../store/chatLog';
-import { getAnswer } from '../api/gpt';
+import { getChatLog, getAnswer } from '../api/gpt';
 import ChatInput from './chatInput';
 import ChatLog from './chatLog';
 import { useParams } from 'react-router-dom';
+import { useEffect, useState } from 'react';
 
 export default function Chat() {
-  const { id } = useParams();
+  const { id: catalogId } = useParams();
   const [role] = useAtom(roleAtom);
-  const [isSend, setIsSend] = useAtom(sendChatAtom);
+  const [firstQuestion, setFirstQuestion] = useState(!catalogId); // id가 없으면 true
   const [textAreaValue, setTextAreaValue] = useState('');
   const [, setChatLog] = useAtom(chatLogAtom);
   const [editorKey, setEditorKey] = useState(0);
+
+  useEffect(() => {
+    if (catalogId) {
+      const fetchChatHistory = async () => {
+        try {
+          const logs = await getChatLog(Number(catalogId));
+
+          const formattedLogs = logs.map((log: { question: string, response: string }) => ({
+            userMessage: log.question,
+            aiResponse: log.response,
+          }));
+
+          setChatLog(formattedLogs);
+          setFirstQuestion(false);
+        } catch (error) {
+          console.error('Error fetching chat history:', error);
+        }
+      };
+      fetchChatHistory();
+    }
+  }, [catalogId, setChatLog]);
 
   const handleChange = (markdown: string) => {
     setTextAreaValue(markdown);
   };
 
-  useEffect(() => {
-    setIsSend(false);
-  }, [setIsSend]);
-
-  const slicedRole = role.length > 30 ? role.slice(0, 30) + '...' : role;
-
   const onClickSendButton = async () => {
     if (!textAreaValue.trim()) return;
 
-    setIsSend(true);
-
+    setFirstQuestion(false);
     setTextAreaValue('');
     setEditorKey((prevKey) => prevKey + 1);
 
@@ -39,7 +52,7 @@ export default function Chat() {
     try {
       const response = await getAnswer(textAreaValue);
       const aiResponse = response.message;
-      const catalogId = response.catalogId;
+      const newCatalogId = response.catalogId;
 
       setChatLog((prevChatLog) => {
         const updatedLog = [...prevChatLog];
@@ -47,20 +60,19 @@ export default function Chat() {
         return updatedLog;
       });
 
-      if (catalogId) {
-        // URL만 변경, 화면은 새로 렌더링하지 않음
-        window.history.pushState({}, '', `/chat/${catalogId}`);
+      if (newCatalogId && !catalogId) {
+        window.history.pushState({}, '', `/chat/${newCatalogId}`);
       }
     } catch (error) {
       console.error('Error fetching AI response:', error);
     }
   };
 
+  const slicedRole = role.length > 30 ? role.slice(0, 30) + '...' : role;
+
   return (
     <>
-      {isSend ? (
-        <ChatLog />
-      ) : (
+      {firstQuestion ? (
         <div className="w-[1116px] flex flex-col justify-center mx-auto my-auto items-center gap-7">
           {role.trim().length !== 0 ? (
             <div className="flex flex-col items-center">
@@ -82,6 +94,8 @@ export default function Chat() {
             />
           </div>
         </div>
+      ) : (
+        <ChatLog />
       )}
     </>
   );
