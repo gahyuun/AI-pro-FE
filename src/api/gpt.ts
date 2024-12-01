@@ -8,7 +8,7 @@ const getAccessToken = () => {
   return accessToken;
 };
 
-export const getAnswer = async (question: string) => {
+export const getAnswer = async (question: string, catalogId?: number) => {
   const { data } = await axios.post(
     `${process.env.REACT_APP_API_URL}/api/chat/question` as string,
     { question},
@@ -16,10 +16,13 @@ export const getAnswer = async (question: string) => {
       headers: {
         Authorization: `Bearer ${getAccessToken()}`,
       },
+      params: {
+        catalogId: catalogId ?? null,
+      },
     }
   );
   return data;
-};
+}; 
 
 export const getRole = async () => {
   const { data } = await axios.get(
@@ -57,3 +60,15 @@ export const getChatList = async () => {
   );
   return data;
 };
+
+export const getChatLog = async ()=>{
+  const { data } = await axios.get<{ catalogId: number;}[]>(
+    `${process.env.REACT_APP_API_URL}/api/getChatCatalog`,
+    {
+      headers: {
+        Authorization: `Bearer ${getAccessToken()}`,
+      },
+    }
+  );
+  return data;
+}
