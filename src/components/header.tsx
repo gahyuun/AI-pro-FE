@@ -7,15 +7,18 @@ import { useCookies } from 'react-cookie';
 import { useNavigate } from 'react-router-dom';
 import { useAtom } from 'jotai';
 import { sideBarAtom } from '../store/menu';
+import { chatLogAtom } from '../store/chatLog';
 
 export default function Header() {
   const navigate = useNavigate();
   const [sideBar, setSideBar] = useAtom(sideBarAtom);
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [cookies, setCookie, removeCookie] = useCookies(['accessToken']);
+  const [, setChatLog] = useAtom(chatLogAtom);
 
   const handleLogout = () => {
     removeCookie('accessToken');
+    setChatLog([]);
     navigate('/sign-in');
   };
   return (
