@@ -9,9 +9,11 @@ import { getChatList, registerRole } from '../api/gpt';
 import { useNavigate } from 'react-router-dom';
 import { ReactComponent as History } from '../assets/history.svg';
 import { ReactComponent as NewChat } from '../assets/newChat.svg';
+import { sideBarAtom } from '../store/menu';
 
 export default function SideBar() {
   const navigate = useNavigate();
+  const [sideBar, setSideBar] = useAtom(sideBarAtom);
   const [value, setValue] = useState('');
   const [role, setRole] = useAtom(roleAtom);
   const [typing, setTyping] = useState(false);
@@ -49,6 +51,7 @@ export default function SideBar() {
         className="flex text-white text-[14px] font-bold  items-center gap-2 py-[6px] cursor-pointer hover:bg-primary/50  rounded-lg"
         onClick={() => {
           navigate('/chat');
+          setSideBar(false);
         }}
       >
         <NewChat />
@@ -99,6 +102,7 @@ export default function SideBar() {
             className="text-white py-[20px] px-[12px] cursor-pointer hover:bg-primary/50 rounded-lg"
             onClick={() => {
               navigate(`/chat/${chat.catalogId}`);
+              setSideBar(false);
             }}
           >
             {chat.summary}

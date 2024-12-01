@@ -8,10 +8,11 @@ function App() {
   return (
     <Router>
       <Routes>
-      <Route path="/" element={<Navigate to="/sign-in" replace />} />
+        <Route path="/" element={<Navigate to="/sign-in" replace />} />
         <Route path="/chat" element={<Main />}></Route>
+        <Route path="/chat/:id" element={<Main />}></Route>
         <Route path="/sign-up" element={<SignUp />}></Route>
-        <Route path="/sign-in" element={<SignIn/>}></Route>
+        <Route path="/sign-in" element={<SignIn />}></Route>
       </Routes>
     </Router>
   );

@@ -6,13 +6,15 @@ import { chatLogAtom } from '../store/chatLog';
 import { getAnswer } from '../api/gpt';
 import ChatInput from './chatInput';
 import ChatLog from './chatLog';
+import { useParams } from 'react-router-dom';
 
 export default function Chat() {
+  const { id } = useParams();
   const [role] = useAtom(roleAtom);
   const [isSend, setIsSend] = useAtom(sendChatAtom);
   const [textAreaValue, setTextAreaValue] = useState('');
   const [, setChatLog] = useAtom(chatLogAtom);
-  const [editorKey, setEditorKey] = useState(0); 
+  const [editorKey, setEditorKey] = useState(0);
 
   const handleChange = (markdown: string) => {
     setTextAreaValue(markdown);

@@ -2,29 +2,26 @@ import { ReactComponent as Menu } from '../assets/menu.svg';
 import { ReactComponent as User } from '../assets/mockUser.svg';
 import { SheetContent, SheetTrigger, Sheet } from './ui/sheet';
 import SideBar from './sideBar';
-import {
-  DropdownMenu,
-  DropdownMenuTrigger,
-  DropdownMenuContent,
-  DropdownMenuItem,
-} from './ui/dropdown-menu';
+import { DropdownMenu, DropdownMenuTrigger, DropdownMenuContent, DropdownMenuItem } from './ui/dropdown-menu';
 import { useCookies } from 'react-cookie';
 import { useNavigate } from 'react-router-dom';
+import { useAtom } from 'jotai';
+import { sideBarAtom } from '../store/menu';
 
 export default function Header() {
   const navigate = useNavigate();
-
+  const [sideBar, setSideBar] = useAtom(sideBarAtom);
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [cookies, setCookie, removeCookie] = useCookies(['accessToken']);
 
   const handleLogout = () => {
     removeCookie('accessToken');
     navigate('/sign-in');
-  }
+  };
   return (
     <div className="bg-primary h-[72px] w-[100%] p-4 flex items-center justify-between">
       <div className="flex items-center gap-5">
-        <Sheet>
+        <Sheet open={sideBar} onOpenChange={setSideBar}>
           <SheetTrigger>
             <Menu />
           </SheetTrigger>
