@@ -27,6 +27,8 @@ export default function SideBar() {
     const fetchData = async () => {
       try {
         const data = await getChatList();
+        console.log(data);
+
         setChatList(
           data.map((v) => {
             return { catalogId: v.catalogId, summary: v.summary };
@@ -67,7 +69,7 @@ export default function SideBar() {
 
           {typing ? (
             <div className="flex gap-2">
-              <Check className="cursor-pointer" onClick={handleRole} />
+              <Check className="cursor-pointer" onClick={handleRole} data-testid="check-icon" />
               <X
                 className="cursor-pointer"
                 onClick={() => {
@@ -81,6 +83,7 @@ export default function SideBar() {
               onClick={() => {
                 setTyping(true);
               }}
+              data-testid="edit-icon"
             ></Edit>
           )}
         </div>
@@ -104,6 +107,7 @@ export default function SideBar() {
               navigate(`/chat/${chat.catalogId}`);
               setSideBar(false);
             }}
+            data-testid={`chat-${chat.catalogId}`}
           >
             {chat.summary}
           </div>

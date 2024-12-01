@@ -23,7 +23,7 @@ export default function Header() {
       <div className="flex items-center gap-5">
         <Sheet open={sideBar} onOpenChange={setSideBar}>
           <SheetTrigger>
-            <Menu />
+            <Menu data-testid="menu-icon" />
           </SheetTrigger>
           <SheetContent side="left" className="w-[480px] bg-secondary pt-[56px] border-0 overflow-y-scroll">
             <SideBar />
