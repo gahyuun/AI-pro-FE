@@ -61,14 +61,17 @@ export const getChatList = async () => {
   return data;
 };
 
-export const getChatLog = async ()=>{
-  const { data } = await axios.get<{ catalogId: number;}[]>(
-    `${process.env.REACT_APP_API_URL}/api/getChatCatalog`,
+export const getChatLog = async (catalogId?: number) => {
+  const { data } = await axios.get(
+    `${process.env.REACT_APP_API_URL}/api/getChatHistory`,
     {
       headers: {
         Authorization: `Bearer ${getAccessToken()}`,
       },
+      params: {
+        catalogId: catalogId ?? null,
+      },
     }
   );
   return data;
-}
+};
