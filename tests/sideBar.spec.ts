@@ -3,8 +3,6 @@ import { test, expect } from '@playwright/test';
 test.describe('SideBar', () => {
   test.beforeEach(async ({ page }) => {
     await page.goto('http://localhost:3000/sign-in');
-    await page.fill('input[name="id"]', 'asd123');
-    await page.click('text=다음');
 
     await page.fill('input[name="id"]', 'asd123');
     await page.click('text=다음');
