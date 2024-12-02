@@ -36,6 +36,10 @@ export default function Chat() {
     }
   }, [catalogId, setChatLog]);
 
+  useEffect(()=>{
+    setFirstQuestion(!catalogId);
+  },[catalogId]);
+
   const handleChange = (markdown: string) => {
     setTextAreaValue(markdown);
   };
