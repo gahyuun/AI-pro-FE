@@ -52,6 +52,7 @@ export default function ChatInput({
         size="icon"
         className="w-[90px] min-h-[80px] h-full"
         onClick={onClickSendButton}
+        aria-label="send"
       >
         <Send />
       </Button>

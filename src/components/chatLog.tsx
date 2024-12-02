@@ -87,9 +87,11 @@ export default function ChatLog() {
                     <p className="text-white mt-4">답변을 준비중입니다{dots}</p>
                   </div>
                 ) : (
+                  <div aria-label="aiResponse">
                   <ReactMarkdown className="text-white p-3" rehypePlugins={[rehypeRaw, rehypeHighlight]}>
                     {entry.aiResponse}
                   </ReactMarkdown>
+                  </div>
                 )}
               </div>
             </div>
