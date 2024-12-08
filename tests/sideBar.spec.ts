@@ -58,10 +58,10 @@ test.describe('SideBar', () => {
 
     await page.waitForTimeout(2000);
     // data-testid가 chat-1인 요소를 찾아서 클릭
-    await page.click('div[data-testid="chat-1"]');
+    await page.click('div[data-testid="chat-58"]');
     await page.waitForTimeout(2000);
 
-    await expect(page).toHaveURL('http://localhost:3000/chat/1');
+    await expect(page).toHaveURL('http://localhost:3000/chat/58');
     await expect(sideBar).not.toBeVisible();
   });
 });
